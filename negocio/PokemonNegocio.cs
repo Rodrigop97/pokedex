@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using dominio;
+using System.Security.Cryptography;
 
 namespace negocio
 {
@@ -73,7 +74,7 @@ namespace negocio
                 {
                     Pokemon aux = new Pokemon();
                     aux.Id = (int)datos.Lector["Id"];
-                    aux.Numero = datos.Lector.GetInt32(0);
+                    aux.Numero = datos.Lector.GetInt32(1);
                     aux.Nombre = (string)datos.Lector["Nombre"];
                     aux.Descripcion = (string)datos.Lector["Descripcion"];
                     if (!(datos.Lector["UrlImagen"] is DBNull))
@@ -153,6 +154,31 @@ namespace negocio
                 datos.setearParametro("@nombre", poke.Nombre);
                 datos.setearParametro("@desc", poke.Descripcion);
                 datos.setearParametro("@img", poke.UrlImagen);
+                datos.setearParametro("@idTipo", poke.Tipo.Id);
+                datos.setearParametro("@idDebilidad", poke.Debilidad.Id);
+                datos.setearParametro("@id", poke.Id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void modificarSP(Pokemon poke)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setProcedimiento("storeModificarPokemon");
+                datos.setearParametro("@numero", poke.Numero);
+                datos.setearParametro("@nombre", poke.Nombre);
+                datos.setearParametro("@desc", poke.Descripcion);
+                datos.setearParametro("@urlImagen", poke.UrlImagen);
                 datos.setearParametro("@idTipo", poke.Tipo.Id);
                 datos.setearParametro("@idDebilidad", poke.Debilidad.Id);
                 datos.setearParametro("@id", poke.Id);
@@ -282,7 +308,5 @@ namespace negocio
                 throw ex;
             }
         }
-
-
     }
 }

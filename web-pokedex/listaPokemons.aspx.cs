@@ -25,7 +25,7 @@ namespace web_pokedex
 
         protected void gvPokemons_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int num = int.Parse(gvPokemons.Rows[gvPokemons.SelectedIndex].Cells[0].Text.ToString());
+            int num = int.Parse(gvPokemons.SelectedRow.Cells[0].Text);
             Response.Redirect("FormularioPokemon.aspx?n="+num);
         }
     }

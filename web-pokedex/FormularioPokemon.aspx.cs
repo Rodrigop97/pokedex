@@ -28,16 +28,18 @@ namespace web_pokedex
                     ddlDebilidad.DataTextField = "Descripcion";
                     ddlDebilidad.DataBind();
                 }
-                if (Request.QueryString["n"] != null)
+                if (Request.QueryString["n"] != null && !IsPostBack)
                 {
                     PokemonNegocio negocioPokemon = new PokemonNegocio();
-                    Pokemon selected = negocioPokemon.listarSP().Find(x => x.Numero == int.Parse(Request.QueryString["n"]));
+                    Pokemon selected = negocioPokemon.listarSP().Find(x => x.Id == int.Parse(Request.QueryString["n"]));
                     txtNumero.Text = selected.Numero.ToString();
                     txtNombre.Text = selected.Nombre;
                     txtDescripcion.Text = selected.Descripcion;
                     txtUrlImagen.Text = selected.UrlImagen;
+                    imgPokemon.ImageUrl = selected.UrlImagen;
                     ddlTipo.SelectedValue = selected.Tipo.Id.ToString();
                     ddlDebilidad.SelectedValue = selected.Debilidad.Id.ToString();
+
                 }
             }
             catch (Exception)
@@ -50,23 +52,27 @@ namespace web_pokedex
 
         protected void Aceptar_Click(object sender, EventArgs e)
         {
-            Pokemon nuevo = new Pokemon();
-            nuevo.Numero = int.Parse(txtNumero.Text);
-            nuevo.Nombre = txtNombre.Text.ToString();
-            nuevo.Descripcion = txtDescripcion.Text.ToString();
-            nuevo.UrlImagen = txtUrlImagen.Text.ToString();
+            Pokemon poke = new Pokemon();
+            poke.Id = int.Parse(Request.QueryString["n"]);
+            poke.Numero = int.Parse(txtNumero.Text);
+            poke.Nombre = txtNombre.Text.ToString();
+            poke.Descripcion = txtDescripcion.Text.ToString();
+            poke.UrlImagen = txtUrlImagen.Text.ToString();
 
             ElementoNegocio datos = new ElementoNegocio();
             List<Elemento> elementos = datos.listar();
             Elemento tipo = new Elemento();
             tipo = elementos.Find(x => x.Id == int.Parse(ddlTipo.SelectedValue));
-            nuevo.Tipo = tipo;
+            poke.Tipo = tipo;
             Elemento debilidad = new Elemento();
             debilidad = elementos.Find(x => x.Id == int.Parse(ddlDebilidad.SelectedValue));
-            nuevo.Debilidad = debilidad;
+            poke.Debilidad = debilidad;
 
             PokemonNegocio pNegocio = new PokemonNegocio();
-            pNegocio.agregarSP(nuevo);
+            if (Request.QueryString["n"] != null)
+                pNegocio.modificarSP(poke);
+            else
+                pNegocio.agregarSP(poke);
             Response.Redirect("Default.aspx");
         }
 
