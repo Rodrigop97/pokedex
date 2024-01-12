@@ -21,13 +21,18 @@ namespace web_pokedex
                 gvPokemons.DataSource = listaPokemon;
                 gvPokemons.DataBind();
             }
-            
         }
 
         protected void gvPokemons_SelectedIndexChanged(object sender, EventArgs e)
         {
             int num = int.Parse(gvPokemons.SelectedRow.Cells[0].Text);
             Response.Redirect("FormularioPokemon.aspx?n="+num);
+        }
+
+        protected void gvPokemons_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gvPokemons.PageIndex = e.NewPageIndex;
+            gvPokemons.DataBind();
         }
     }
 }

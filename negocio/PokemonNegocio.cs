@@ -11,7 +11,7 @@ namespace negocio
 {
     public class PokemonNegocio
     {
-
+        // lista solo los pokemons "activos" con consulta embebida
         public List<Pokemon> listar()
         {
             List<Pokemon> lista = new List<Pokemon>();
@@ -61,7 +61,7 @@ namespace negocio
             }
 
         }
-
+        // lista todos los pokemons con StoreProcedure
         public List<Pokemon> listarSP()
         {
             List<Pokemon> lista = new List<Pokemon>();

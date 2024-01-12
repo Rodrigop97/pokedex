@@ -3,7 +3,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:GridView runat="server" ID="gvPokemons" AutoGenerateColumns="false" CssClass="table table-bordered table-striped border-dark-subtle mt-3" 
-        OnSelectedIndexChanged="gvPokemons_SelectedIndexChanged" AllowPaging="true" PageSize="8" >
+        OnSelectedIndexChanged="gvPokemons_SelectedIndexChanged" AllowPaging="true" PageSize="8"
+        OnPageIndexChanging="gvPokemons_PageIndexChanging" >
         <Columns>
             <asp:BoundField DataField="Id" HeaderStyle-CssClass="d-none" ItemStyle-CssClass="d-none" />
             <asp:BoundField HeaderText="Número" DataField="Numero" />

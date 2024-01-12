@@ -53,7 +53,6 @@ namespace web_pokedex
             }
             catch (Exception)
             {
-
                 throw;
             }
 
@@ -89,7 +88,6 @@ namespace web_pokedex
 
         protected void txtUrlImagen_TextChanged(object sender, EventArgs e)
         {
-
             imgPokemon.ImageUrl = txtUrlImagen.Text.ToString();
         }
 
