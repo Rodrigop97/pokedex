@@ -12,11 +12,18 @@ namespace web_pokedex
 {
     public partial class Agregar : System.Web.UI.Page
     {
+        Pokemon poke = null;
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                if (!IsPostBack)
+                if (Request.QueryString["n"] != null)
+                {
+                    PokemonNegocio negocioPokemon = new PokemonNegocio();
+                    poke = negocioPokemon.listarSP().Find(x => x.Id == int.Parse(Request.QueryString["n"]));
+                }
+
+                    if (!IsPostBack)
                 {
                     ElementoNegocio datos = new ElementoNegocio();
                     ddlTipo.DataSource = datos.listar();
@@ -30,16 +37,18 @@ namespace web_pokedex
                 }
                 if (Request.QueryString["n"] != null && !IsPostBack)
                 {
-                    PokemonNegocio negocioPokemon = new PokemonNegocio();
-                    Pokemon selected = negocioPokemon.listarSP().Find(x => x.Id == int.Parse(Request.QueryString["n"]));
-                    txtNumero.Text = selected.Numero.ToString();
-                    txtNombre.Text = selected.Nombre;
-                    txtDescripcion.Text = selected.Descripcion;
-                    txtUrlImagen.Text = selected.UrlImagen;
-                    imgPokemon.ImageUrl = selected.UrlImagen;
-                    ddlTipo.SelectedValue = selected.Tipo.Id.ToString();
-                    ddlDebilidad.SelectedValue = selected.Debilidad.Id.ToString();
-
+                //    PokemonNegocio negocioPokemon = new PokemonNegocio();
+                //    poke = negocioPokemon.listarSP().Find(x => x.Id == int.Parse(Request.QueryString["n"]));
+                    //Pokemon selected = negocioPokemon.listarSP().Find(x => x.Id == int.Parse(Request.QueryString["n"]));
+                    txtNumero.Text = poke.Numero.ToString();
+                    txtNombre.Text = poke.Nombre;
+                    txtDescripcion.Text = poke.Descripcion;
+                    txtUrlImagen.Text = poke.UrlImagen;
+                    imgPokemon.ImageUrl = poke.UrlImagen;
+                    ddlTipo.SelectedValue = poke.Tipo.Id.ToString();
+                    ddlDebilidad.SelectedValue = poke.Debilidad.Id.ToString();
+                    btnCambiarActivacion.Text = poke.Activo ? "Desactivar" : "Activar";
+                    btnCambiarActivacion.Visible = true;
                 }
             }
             catch (Exception)
@@ -52,8 +61,10 @@ namespace web_pokedex
 
         protected void Aceptar_Click(object sender, EventArgs e)
         {
-            Pokemon poke = new Pokemon();
-            poke.Id = int.Parse(Request.QueryString["n"]);
+            if (poke == null)
+                poke = new Pokemon();
+            //Pokemon poke = new Pokemon();
+            //poke.Id = int.Parse(Request.QueryString["n"]);
             poke.Numero = int.Parse(txtNumero.Text);
             poke.Nombre = txtNombre.Text.ToString();
             poke.Descripcion = txtDescripcion.Text.ToString();
@@ -80,6 +91,14 @@ namespace web_pokedex
         {
 
             imgPokemon.ImageUrl = txtUrlImagen.Text.ToString();
+        }
+
+        protected void cambiarActivacion_Click(object sender, EventArgs e)
+        {
+            poke.Activo = !poke.Activo;
+            PokemonNegocio pNegocio = new PokemonNegocio();
+            pNegocio.modificarSP(poke);
+            Response.Redirect("Default.aspx");
         }
     }
 }

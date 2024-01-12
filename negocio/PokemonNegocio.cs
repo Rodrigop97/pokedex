@@ -86,6 +86,7 @@ namespace negocio
                     aux.Debilidad = new Elemento();
                     aux.Debilidad.Id = (int)datos.Lector["IdDebilidad"];
                     aux.Debilidad.Descripcion = (string)datos.Lector["Debilidad"];
+                    aux.Activo = (bool)datos.Lector["Activo"];
 
                     lista.Add(aux);
                 }
@@ -181,6 +182,7 @@ namespace negocio
                 datos.setearParametro("@urlImagen", poke.UrlImagen);
                 datos.setearParametro("@idTipo", poke.Tipo.Id);
                 datos.setearParametro("@idDebilidad", poke.Debilidad.Id);
+                datos.setearParametro("@activo", poke.Activo);
                 datos.setearParametro("@id", poke.Id);
 
                 datos.ejecutarAccion();

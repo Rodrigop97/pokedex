@@ -21,6 +21,7 @@ namespace web_pokedex
                 gvPokemons.DataSource = listaPokemon;
                 gvPokemons.DataBind();
             }
+            
         }
 
         protected void gvPokemons_SelectedIndexChanged(object sender, EventArgs e)

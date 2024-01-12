@@ -39,34 +39,39 @@
                         <label for="ddlDebilidad" class="form-label">Debilidad</label>
                         <asp:DropDownList runat="server" ID="ddlDebilidad" CssClass="form-select"></asp:DropDownList>
                     </div>
-                    <div class="col-12 mt-3">
-                        <% if (Request.QueryString["index"] != null)
-                            {
-                        %>
-                        <asp:Button Text="Guardar" runat="server" CssClass="btn btn-primary" />
-                        <%}
-                            else
-                            {
-                        %>
-                        <asp:Button Text="Aceptar" OnClick="Aceptar_Click" runat="server" CssClass="btn btn-primary" />
-                        <%} %>
-                        <a href="Default.aspx">Cancelar</a>
-                    </div>
+
                 </div>
                 <div class="col-6">
                     <div class="col-md-12">
                         <asp:UpdatePanel runat="server">
                             <ContentTemplate>
                                 <label for="txtUrlImagen" class="form-label">Url de imagen</label>
-                                <asp:TextBox runat="server" ID="txtUrlImagen" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtUrlImagen_TextChanged" />
-
+                                <asp:TextBox runat="server" ID="txtUrlImagen" CssClass="form-control col-6" AutoPostBack="true"
+                                    OnTextChanged="txtUrlImagen_TextChanged" />
                                 <div class="col-md-12">
                                     <asp:Image ImageUrl="https://img.freepik.com/vector-premium/vector-icono-imagen-predeterminado-pagina-imagen-faltante-diseno-sitio-web-o-aplicacion-movil-no-hay-foto-disponible_87543-11093.jpg"
-                                        runat="server" ID="imgPokemon" cssclass="img-fluid mt-4" />
+                                        runat="server" ID="imgPokemon" CssClass="mt-4 img-thumbnail col-mt-auto col-lg-6" />
                                 </div>
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mt-3">
+                    <% if (Request.QueryString["index"] != null)
+                        {
+                    %>
+                    <asp:Button Text="Guardar" runat="server" CssClass="btn btn-primary" />
+                    <%}
+                        else
+                        {
+                    %>
+                    <asp:Button Text="Aceptar" OnClick="Aceptar_Click" runat="server" CssClass="btn btn-primary" />
+                    <asp:Button OnClick="cambiarActivacion_Click" ID="btnCambiarActivacion" runat="server" CssClass="btn btn-warning" Visible="false" />
+                    <%} %>
+                    <a href="Default.aspx">Cancelar</a>
+                    
                 </div>
             </div>
         </div>
