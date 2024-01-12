@@ -4,14 +4,17 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:GridView runat="server" ID="gvPokemons" AutoGenerateColumns="false" CssClass="table table-bordered table-striped border-dark-subtle mt-3" 
         OnSelectedIndexChanged="gvPokemons_SelectedIndexChanged" AllowPaging="true" PageSize="8"
-        OnPageIndexChanging="gvPokemons_PageIndexChanging" >
+        OnPageIndexChanging="gvPokemons_PageIndexChanging" OnRowDeleting="gvPokemons_RowDeleting" >
         <Columns>
             <asp:BoundField DataField="Id" HeaderStyle-CssClass="d-none" ItemStyle-CssClass="d-none" />
             <asp:BoundField HeaderText="Número" DataField="Numero" />
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
             <asp:CheckBoxField HeaderText="Activo" DataField="Activo" />
-            <asp:CommandField ShowSelectButton="true" SelectText="Editar" />
+            <asp:CommandField HeaderText="Acciones" ShowDeleteButton="true" ShowSelectButton="true" SelectText="Editar" />
+            
         </Columns>
     </asp:GridView>
-    <a href="FormularioPokemon.aspx" class="btn btn-primary" >Agregarr</a>
+    <a href="FormularioPokemon.aspx" class="btn btn-primary" >Agregar</a>
+       
+    
 </asp:Content>

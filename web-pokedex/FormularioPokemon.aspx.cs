@@ -93,9 +93,9 @@ namespace web_pokedex
 
         protected void cambiarActivacion_Click(object sender, EventArgs e)
         {
-            poke.Activo = !poke.Activo;
+            Response.Write("<script>alert('" + "holanda "+ "'); console.log('jiji')</script>");
             PokemonNegocio pNegocio = new PokemonNegocio();
-            pNegocio.modificarSP(poke);
+            pNegocio.alternarActivacion(poke);
             Response.Redirect("Default.aspx");
         }
     }

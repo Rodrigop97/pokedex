@@ -296,13 +296,14 @@ namespace negocio
             }
         }
 
-        public void eliminarLogico(int id)
+        public void alternarActivacion(Pokemon pokemon)
         {
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta("update POKEMONS set Activo = 0 Where id = @id");
-                datos.setearParametro("@id", id);
+                datos.setearConsulta("update POKEMONS set Activo = @activo Where id = @id");
+                datos.setearParametro("@id", pokemon.Id);
+                datos.setearParametro("@activo", !pokemon.Activo);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

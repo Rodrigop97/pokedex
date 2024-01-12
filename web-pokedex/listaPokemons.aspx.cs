@@ -14,13 +14,10 @@ namespace web_pokedex
         List<Pokemon> listaPokemon;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
                 PokemonNegocio datos = new PokemonNegocio();
                 listaPokemon = datos.listarSP();
                 gvPokemons.DataSource = listaPokemon;
                 gvPokemons.DataBind();
-            }
         }
 
         protected void gvPokemons_SelectedIndexChanged(object sender, EventArgs e)
@@ -33,6 +30,19 @@ namespace web_pokedex
         {
             gvPokemons.PageIndex = e.NewPageIndex;
             gvPokemons.DataBind();
+        }
+
+        protected void gvPokemons_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            //Pokemon poke = (Pokemon)((GridView)sender).SelectedRow.DataItem;
+            PokemonNegocio datos = new PokemonNegocio();
+            datos.eliminar(int.Parse(e.Values["Id"].ToString()));
+            Response.Redirect("listaPokemons.aspx");
+        }
+
+        protected void Eliminar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
